@@ -1,5 +1,6 @@
 package com.kwok.config;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -19,7 +20,7 @@ public class AppConfigProperties {
 		Properties prop = new Properties();
 		
 		try {
-			prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath));
+			prop.load(new FileInputStream(filePath));
 		} catch (IOException e) {
 			System.err.println("Properties 加载配置文件路径有误。");
 			e.printStackTrace();
@@ -48,8 +49,11 @@ public class AppConfigProperties {
 		return EncodingAESKey;
 	}
 	
+	
 	public static void main(String[] args) {
-		AppConfigProperties.setConfigPath(("conf/app.properties"));
+		
+		System.out.println(Thread.currentThread().getContextClassLoader().getResource("conf/app.properties").getPath());
+		AppConfigProperties.setConfigPath(Thread.currentThread().getContextClassLoader().getResource("conf/app.properties").getPath());
 		System.out.println(AppConfigProperties.AppID);
 	}
 	

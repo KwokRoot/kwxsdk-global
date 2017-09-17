@@ -5,10 +5,6 @@ import com.google.gson.JsonParser;
 import com.kwok.util.WeiXinUtil;
 
 public class AppConfig {
-
-	static{
-		AppConfigProperties.setConfigPath(("conf/app.properties"));
-	}
 	
 	public static String AppID = AppConfigProperties.getAppID();
 	public static String AppSecret = AppConfigProperties.getAppSecret();

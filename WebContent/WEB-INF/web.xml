@@ -9,8 +9,15 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  <context-param>
+  	<description>微信服务器配置参数</description>
+  	<param-name>AppConfig</param-name>
+  	<param-value>classpath:conf/app.properties</param-value>
+  	<!-- <param-value>/WEB-INF/classes/conf/app.properties</param-value> -->
+  </context-param>
+  
   <listener>
     <listener-class>com.kwok.timer.GlobalTimerListener</listener-class>
   </listener>
-  
+
 </web-app>
