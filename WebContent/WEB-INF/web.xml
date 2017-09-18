@@ -17,6 +17,10 @@
   </context-param>
   
   <listener>
+  	<listener-class>com.kwok.listener.FileLoadListener</listener-class>
+  </listener>
+  
+  <listener>
     <listener-class>com.kwok.timer.GlobalTimerListener</listener-class>
   </listener>
 

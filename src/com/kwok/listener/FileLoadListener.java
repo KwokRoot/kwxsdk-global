@@ -2,11 +2,9 @@ package com.kwok.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 import com.kwok.config.AppConfigProperties;
 
-@WebListener
 public class FileLoadListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent servletContextEvent)  { 
