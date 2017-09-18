@@ -17,7 +17,7 @@ public class UpdateTokenTask extends TimerTask{
 			
 			AppConfig.setAccessToken();
 			AppConfig.setJSAPITicket();
-			System.out.println(sdf.format(new Date())+"  已定时更新 Token SUCCESS...\n");
+			System.out.println(sdf.format(new Date())+"--- 已定时更新 Token ---\n");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
