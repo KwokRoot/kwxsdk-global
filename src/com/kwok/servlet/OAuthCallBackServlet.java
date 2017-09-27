@@ -27,14 +27,20 @@ public class OAuthCallBackServlet extends HttpServlet {
 			String jsonStr = WeiXinUtil.getRequest(ReqAccessTokenPath);
 			JsonElement  je = new JsonParser().parse(jsonStr);
 			
-			String openid = je.getAsJsonObject().get("openid").getAsString();
-			// 对 openid 进行操作。
-			System.out.println(openid);
+			if (je.getAsJsonObject().get("openid") != null) {
+				
+				String openid = je.getAsJsonObject().get("openid").getAsString();
+				/*
+				 * 对 openid 进行操作。
+				 */
+				System.out.println(openid);
+				
+			}else{
+				//System.err.println(jsonStr); //防止微信服务器重复发起请求(微信服务器重复发起请求时，由于 code 只能使用一次，处理该 GET 请求用该 code 再次获取 openid 和 access_token 会返回错误。)。
+			}
 			
-		} catch (JsonSyntaxException e){
+		} catch (Exception e){
 			System.err.println("获取 openid 发生错误。");
-			e.printStackTrace();
-		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		
