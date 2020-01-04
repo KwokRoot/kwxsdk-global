@@ -3,7 +3,7 @@ package com.kwok.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.kwok.config.AppConfigProperties;
+import com.kwok.config.AppConfig;
 
 public class FileLoadListener implements ServletContextListener {
 
@@ -19,7 +19,7 @@ public class FileLoadListener implements ServletContextListener {
     	}
     	
     	//System.out.println(fileRealPath);
-    	AppConfigProperties.setConfigPath(fileRealPath);
+    	AppConfig.setConfigPath(fileRealPath);
    
     }
     

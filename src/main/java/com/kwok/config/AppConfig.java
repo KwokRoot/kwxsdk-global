@@ -1,15 +1,37 @@
 package com.kwok.config;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.kwok.util.CommonsUtil;
 
 public class AppConfig {
 	
-	public static String AppID = AppConfigProperties.getAppID();
-	public static String AppSecret = AppConfigProperties.getAppSecret();
-	public static String token = AppConfigProperties.getToken();
-	public static String EncodingAESKey = AppConfigProperties.getEncodingAESKey();
+	public static String AppID;
+	public static String AppSecret;
+	public static String token;
+	public static String EncodingAESKey;
+	
+	public static void setConfigPath(String filePath) {
+		
+		Properties prop = new Properties();
+		
+		try {
+			prop.load(new FileInputStream(filePath));
+		} catch (IOException e) {
+			System.err.println("Properties 加载配置文件路径有误。");
+			e.printStackTrace();
+		}
+		
+		AppID = prop.getProperty("AppID");
+		AppSecret = prop.getProperty("AppSecret");
+		token = prop.getProperty("token");
+		EncodingAESKey = prop.getProperty("EncodingAESKey");
+		
+	}
 	
 	
 	private static String AccessToken;
@@ -20,14 +42,14 @@ public class AppConfig {
 		
 		String jsonStr = CommonsUtil.getRequest("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+ AppID +"&secret=" +AppSecret);
 		System.out.println(jsonStr);
-		JsonElement  je = new JsonParser().parse(jsonStr);
+		JSONObject jsonObject = JSON.parseObject(jsonStr);
 		String returnStr = null;
 		
 		try {
-			AccessToken= je.getAsJsonObject().get("access_token").getAsString();
+			AccessToken= jsonObject.getString("access_token");
 			returnStr = "ok";
 		} catch (Exception e) {
-			returnStr = je.getAsJsonObject().get("errmsg").getAsString();
+			returnStr = jsonObject.getString("errmsg");
 		}
 		
 		return returnStr;
@@ -50,13 +72,13 @@ public class AppConfig {
 		
 		String jsonStr = CommonsUtil.getRequest("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+AccessToken+"&type=jsapi");
 		System.out.println(jsonStr);
-		JsonElement  je = new JsonParser().parse(jsonStr);
+		JSONObject jsonObject = JSON.parseObject(jsonStr);
 		
-		int errcode = je.getAsJsonObject().get("errcode").getAsInt();
-		String returnStr = je.getAsJsonObject().get("errmsg").getAsString();
+		int errcode = jsonObject.getIntValue("errcode");
+		String returnStr = jsonObject.getString("errmsg");
 		
 		if(errcode==0){
-			JSAPITicket= je.getAsJsonObject().get("ticket").getAsString();
+			JSAPITicket= jsonObject.getString("ticket");
 		}
 		
 		return returnStr;

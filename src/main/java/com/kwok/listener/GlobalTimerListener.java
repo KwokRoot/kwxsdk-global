@@ -1,7 +1,10 @@
-package com.kwok.timer;
+package com.kwok.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
+import com.kwok.timer.GlobalTimer;
+import com.kwok.timer.UpdateTokenTask;
 
 public class GlobalTimerListener implements ServletContextListener {
 	
