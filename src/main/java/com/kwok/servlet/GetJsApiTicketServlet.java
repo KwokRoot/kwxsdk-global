@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kwok.config.AppConfig;
-import com.kwok.util.WeiXinUtil;
+import com.kwok.util.CommonsUtil;
 
 /**
  * 获取 JsApiTicket
@@ -26,18 +26,18 @@ public class GetJsApiTicketServlet extends HttpServlet {
 		String randomStr = request.getParameter("randomStr");
 		String signature = request.getParameter("signature");
 
-		if ("".equals(randomStr) || randomStr == null || "".equals(signature) || signature == null) {
-			response.getWriter().append("PARAMETER ERROR!");
-		} else if (signature.equals(WeiXinUtil.getSha1(randomStr + AppConfig.token))) {
-			try {
+		try{
+			if ("".equals(randomStr) || randomStr == null || "".equals(signature) || signature == null) {
+				response.getWriter().append("PARAMETER ERROR!");
+			} else if (signature.equals(CommonsUtil.getSha1(randomStr + AppConfig.token))) {
 				response.getWriter().append(AppConfig.getJSAPITicket());
-			} catch (Exception e) {
-				e.printStackTrace();
+			} else {
+				response.getWriter().append("ENCRYPTION ERROR!");
 			}
-		} else {
-			response.getWriter().append("ENCRYPTION ERROR!");
+		}catch (Exception e) {
+			response.getWriter().append("ERROR:" + e.getMessage());
+			e.printStackTrace();
 		}
-
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

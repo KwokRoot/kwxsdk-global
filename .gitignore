@@ -1,11 +1,11 @@
+# dir
+build/
+
 # Compiled class file
 *.class
 
 # Log file
 *.log
-
-# dir
-build/
 
 # BlueJ files
 *.ctxt
@@ -24,4 +24,8 @@ build/
 hs_err_pid*
 
 /target/
+
+.project
+.classpath
+/.settings/
 
