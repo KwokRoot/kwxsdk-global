@@ -2,7 +2,7 @@ package com.kwok.config;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.kwok.util.WeiXinUtil;
+import com.kwok.util.CommonsUtil;
 
 public class AppConfig {
 	
@@ -18,7 +18,7 @@ public class AppConfig {
 
 	public static String setAccessToken() throws Exception{
 		
-		String jsonStr = WeiXinUtil.getRequest("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+ AppID +"&secret=" +AppSecret);
+		String jsonStr = CommonsUtil.getRequest("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+ AppID +"&secret=" +AppSecret);
 		System.out.println(jsonStr);
 		JsonElement  je = new JsonParser().parse(jsonStr);
 		String returnStr = null;
@@ -48,7 +48,7 @@ public class AppConfig {
 			setAccessToken();
 		}
 		
-		String jsonStr = WeiXinUtil.getRequest("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+AccessToken+"&type=jsapi");
+		String jsonStr = CommonsUtil.getRequest("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token="+AccessToken+"&type=jsapi");
 		System.out.println(jsonStr);
 		JsonElement  je = new JsonParser().parse(jsonStr);
 		
